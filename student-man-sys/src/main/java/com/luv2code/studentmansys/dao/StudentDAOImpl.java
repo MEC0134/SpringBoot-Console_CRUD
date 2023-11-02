@@ -20,13 +20,16 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student readStudent(Integer id) {
-        return null;
+        Student theStudent = entityManager.find(Student.class, id);
+        return theStudent;
     }
 
     @Override
-    public Student updateStudent(Student theStudent) {
-        return null;
-    }
+    public Student findById(Integer id) { return entityManager.find(Student.class, id); }
+
+    @Override
+    @Transactional
+    public void updateStudent(Student theStudent) { entityManager.merge(theStudent); }
 
     @Override
     public void deleteStudent(Integer id) {

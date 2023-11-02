@@ -75,11 +75,10 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "studId=" + studId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "Student Info:" +
+                "\nstudId =" + studId +
+                ", \nfirstName ='" + firstName + '\'' +
+                ", \nlastName ='" + lastName + '\'' +
+                ", \nemail ='" + email + '\'';
     }
 }

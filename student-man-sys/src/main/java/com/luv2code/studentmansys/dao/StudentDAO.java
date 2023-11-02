@@ -4,11 +4,24 @@ import com.luv2code.studentmansys.entity.Student;
 
 public interface StudentDAO {
 
+    // Create
+
     void createStudent(Student theStudent);
+
+
+    // Read
 
     Student readStudent(Integer id);
 
-    Student updateStudent(Student theStudent);
+    Student findById(Integer id);
+
+
+    // Update
+
+    void updateStudent(Student theStudent);
+
+
+    // Read
 
     void deleteStudent(Integer id);
 
