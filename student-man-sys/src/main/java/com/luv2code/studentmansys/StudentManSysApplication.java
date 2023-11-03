@@ -32,9 +32,10 @@ public class StudentManSysApplication {
 				findStudent(studentDAO);
 			} else if (userChoice.equalsIgnoreCase("u")) {
 				updateRecord(studentDAO);
+			} else {
+				deleteStudent(studentDAO);
 			}
 
-			System.out.println("Student Updated!");
 
 		};
 	}
@@ -105,6 +106,14 @@ public class StudentManSysApplication {
 
 		sc.nextLine();
 
+		updateRecordChoice(updateChoice, studentFound, studentDAO);
+
+		System.out.println("Student Updated!");
+	}
+
+
+	private void updateRecordChoice(Integer updateChoice, Student studentFound, StudentDAO studentDAO) {
+
 		if(updateChoice.equals(1)) {
 			System.out.println("Enter new id: ");
 			Integer newId = sc.nextInt();
@@ -123,12 +132,25 @@ public class StudentManSysApplication {
 		} else {
 			System.out.println("Enter new email: ");
 			String newEmail = sc.nextLine();
-			studentFound.setLastName(newEmail);
+			studentFound.setEmail(newEmail);
 			studentDAO.updateStudent(studentFound);
 		}
-
-
 	}
+
+
+	// Delete
+
+	public void deleteStudent(StudentDAO studentDAO) {
+
+		System.out.println("Please enter the id of the student you want to delete: ");
+		Integer id = sc.nextInt();
+
+		studentDAO.deleteStudent(id);
+		System.out.println("Deleting student...");
+
+		System.out.println("Student deleted!");
+	}
+
 
 
 }
