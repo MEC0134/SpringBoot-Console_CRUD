@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 @SpringBootApplication
 public class StudentManSysApplication {
 
@@ -26,37 +28,46 @@ public class StudentManSysApplication {
 
 			String userChoice = Instructions();
 
-			if(userChoice.equalsIgnoreCase("c")) {
-				createStudent(studentDAO);
-			} else if(userChoice.equalsIgnoreCase("r")) {
-				findStudent(studentDAO);
-			} else if (userChoice.equalsIgnoreCase("u")) {
-				updateRecord(studentDAO);
-			} else {
-				deleteStudent(studentDAO);
+			while (true) {
+
+
+				if (userChoice.equalsIgnoreCase("c")) {
+					createStudent(studentDAO);
+					keepGoing();
+				} else if (userChoice.equalsIgnoreCase("r")) {
+					findStudent(studentDAO);
+					keepGoing();
+				} else if (userChoice.equalsIgnoreCase("u")) {
+					updateRecord(studentDAO);
+					keepGoing();
+				} else if (userChoice.equalsIgnoreCase("d")) {
+					deleteStudent(studentDAO);
+					keepGoing();
+				} else {
+					System.out.println("Please enter a valid input. Must be one of the following letters: C, R, U, D");
+				}
+
 			}
-
-
 		};
 	}
 
 
-	private String Instructions() {
+	private void Instructions() {
 
-		System.out.println("*************************************************************");
+		System.out.println("*****************************************************************************");
 		System.out.println("Welcome to STUDMAN - Your Favorite Student Management Software. " +
 				"\nPlease choose carefully from below menu what you would like to do.");
-		System.out.println("*************************************************************");
+		System.out.println("*****************************************************************************");
+	}
+
+	private String mainMenuChoice() {
 		System.out.println("Please press: \nC - to create new student\nR - to see student information \nU - to update a record for a student" +
 				"\nD - to delete a student record using name or id");
-		String menuChoice = sc.nextLine();
-		return menuChoice;
-
+		return sc.nextLine();
 	}
 
 
 	// Create
-
 	private void createStudent(StudentDAO studentDAO) {
 
         System.out.println("Please enter the student id (Must be 9 digits):");
@@ -79,8 +90,8 @@ public class StudentManSysApplication {
         System.out.println("Saved student id: " + tempStudent.getStudId());
     }
 
-	// Read
 
+	// Read
 	private void findStudent(StudentDAO studentDAO) {
 
 		System.out.println("Please enter the student id: ");
@@ -92,7 +103,6 @@ public class StudentManSysApplication {
 
 
 	// Update
-
 	private void updateRecord(StudentDAO studentDAO) {
 
 		System.out.println("Please enter the id of the student you want to make changes for: ");
@@ -139,7 +149,6 @@ public class StudentManSysApplication {
 
 
 	// Delete
-
 	public void deleteStudent(StudentDAO studentDAO) {
 
 		System.out.println("Please enter the id of the student you want to delete: ");
@@ -152,5 +161,21 @@ public class StudentManSysApplication {
 	}
 
 
+	private String keepGoing() {
 
+		System.out.println("Would you like to do anything else? (Enter 1 for yes, 0 for no)");
+		int choice = sc.nextInt();
+
+		if(choice == 0) {
+			System.out.println("Thanks for using STUDMAN!");
+			exit(0);
+		} else if(choice == 1) {
+			System.out.println("Here you go!");
+		} else {
+			System.out.println("Invalid choice. Please enter 0 or 1.");
+			return keepGoing();
+		}
+
+        return null;
+    }
 }
