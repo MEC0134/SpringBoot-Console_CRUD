@@ -25,28 +25,30 @@ public class StudentManSysApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 
 		return runner -> {
-
-			String userChoice = Instructions();
+			Instructions();
 
 			while (true) {
-
+				String userChoice = mainMenuChoice();
 
 				if (userChoice.equalsIgnoreCase("c")) {
 					createStudent(studentDAO);
-					keepGoing();
 				} else if (userChoice.equalsIgnoreCase("r")) {
 					findStudent(studentDAO);
-					keepGoing();
 				} else if (userChoice.equalsIgnoreCase("u")) {
 					updateRecord(studentDAO);
-					keepGoing();
 				} else if (userChoice.equalsIgnoreCase("d")) {
 					deleteStudent(studentDAO);
-					keepGoing();
 				} else {
 					System.out.println("Please enter a valid input. Must be one of the following letters: C, R, U, D");
+					continue;
 				}
 
+
+				int choice = keepGoing();
+				if(choice == 0) {
+					System.out.println("Thanks for using STUDMAN");
+					exit(0);
+				}
 			}
 		};
 	}
@@ -161,21 +163,19 @@ public class StudentManSysApplication {
 	}
 
 
-	private String keepGoing() {
+	private int keepGoing() {
 
 		System.out.println("Would you like to do anything else? (Enter 1 for yes, 0 for no)");
 		int choice = sc.nextInt();
+		sc.nextLine();
 
-		if(choice == 0) {
-			System.out.println("Thanks for using STUDMAN!");
-			exit(0);
-		} else if(choice == 1) {
-			System.out.println("Here you go!");
+		if(choice == 1) {
+			return 1;
+		} else if(choice == 0) {
+			return 0;
 		} else {
 			System.out.println("Invalid choice. Please enter 0 or 1.");
 			return keepGoing();
 		}
-
-        return null;
     }
 }
